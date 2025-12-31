@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Hiruni ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top, #1a002b, #050010);
+    overflow: hidden;
+    font-family: 'Playfair Display', serif;
+}
+
+/* 🌌 BACKGROUND HEARTS (ALWAYS RUNNING) */
+.bg-heart {
+    position: absolute;
+    font-size: 14px;
+    opacity: 0.18;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(110vh); }
+    to { transform: translateY(-10vh); }
+}
+
+/* 💖 CENTER CONTENT */
+.center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    color: white;
+}
+
+/* ✨ TYPEWRITER TEXT */
+.type {
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    line-height: 1.4;
+    max-width: 92vw;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #ffb6ff, #ffd6e8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 18px rgba(255, 182, 255, 0.45);
+    border-right: 3px solid rgba(255,182,255,0.8);
+    padding-right: 6px;
+    animation: blink 0.8s infinite;
+    white-space: pre-wrap;
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* ❤️ HEART BUTTON */
+.big-heart {
+    margin-top: 25px;
+    font-size: clamp(70px, 18vw, 100px);
+    cursor: pointer;
+    animation: pulse 1.3s infinite;
+    user-select: none;
+}
+
+.big-heart span {
+    display: block;
+    font-size: 1rem;
+    margin-top: 8px;
+    color: #ffd6f5;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+}
+
+/* 💕 FALLING HEARTS */
+.falling {
+    position: absolute;
+    font-size: 18px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(120vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* 🌹 ROSE */
+#rose {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 320px;
+    height: 320px;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.rose-heart {
+    position: absolute;
+    font-size: 18px;
+    color: #ff4d6d;
+    opacity: 0;
+    animation: bloom 2s ease forwards;
+}
+
+@keyframes bloom {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="center" id="content"></div>
+<div id="rose"></div>
+
+<script>
+/* 🌌 BACKGROUND LOVE (FOREVER) */
+setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "bg-heart";
+    h.textContent = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (7 + Math.random() * 6) + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 13000);
+}, 180);
+
+/* 💥 HEART STORM (MOBILE SAFE) */
+function heartStorm(count) {
+    for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+            const h = document.createElement("div");
+            h.className = "falling";
+            h.textContent = "❤️";
+            h.style.left = Math.random() * 100 + "vw";
+            h.style.animationDuration = (2.5 + Math.random() * 3) + "s";
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 5500);
+        }, i * 4);
+    }
+}
+
+/* ⌨️ TYPEWRITER */
+function typeText(text, callback) {
+    const el = document.createElement("div");
+    el.className = "type";
+    document.getElementById("content").appendChild(el);
+
+    let i = 0;
+    const typing = setInterval(() => {
+        el.textContent += text[i];
+        i++;
+        if (i >= text.length) {
+            clearInterval(typing);
+            if (callback) callback();
+        }
+    }, 65);
+}
+
+/* 🌹 CREATE ROSE */
+function createRose() {
+    const rose = document.getElementById("rose");
+    rose.innerHTML = "";
+    rose.style.display = "block";
+
+    const petals = 140;
+
+    for (let i = 0; i < petals; i++) {
+        const heart = document.createElement("div");
+        heart.className = "rose-heart";
+        heart.textContent = "❤️";
+
+        const angle = i * (Math.PI * 2 / petals);
+        const radius = 120 * Math.sin(3 * angle);
+
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+
+        heart.style.left = "50%";
+        heart.style.top = "50%";
+        heart.style.transform = `translate(${x}px, ${y}px) scale(0.2)`;
+        heart.style.animationDelay = `${i * 0.02}s`;
+
+        rose.appendChild(heart);
+    }
+}
+
+/* 🎬 START SEQUENCE */
+setTimeout(() => {
+    heartStorm(900); // 100k visual
+
+    setTimeout(() => {
+        typeText(
+            "Happy New Year Sudu Baba, my Lady.\nYou are the best thing that ever happened to me ❤️",
+            showHeartPrompt
+        );
+    }, 2500);
+}, 2000);
+
+/* ❤️ HEART PROMPT */
+function showHeartPrompt() {
+    const heart = document.createElement("div");
+    heart.className = "big-heart";
+    heart.innerHTML = "❤️<span>Tap this to know how much I love you</span>";
+    heart.onclick = nextStage;
+    document.getElementById("content").appendChild(heart);
+}
+
+/* 💍 FINAL */
+function nextStage() {
+    document.getElementById("content").innerHTML = "";
+    heartStorm(2500); // 200k visual
+
+    setTimeout(() => {
+        typeText("I love you for infinity ♾️", () => {
+            setTimeout(() => {
+                typeText("Will you marry me? 💍❤️", () => {
+                    setTimeout(createRose, 1500);
+                });
+            }, 1500);
+        });
+    }, 3000);
+}
+</script>
+
+</body>
+</html>
